@@ -1,1 +1,0 @@
-# Xyber-protocol-Quiz
