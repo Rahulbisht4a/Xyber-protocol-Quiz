@@ -1,0 +1,209 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xyber Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .quiz-container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 25px;
+        }
+        .options {
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Xyber Quiz – $XYBER Token Utility</h1>
+        <div id="quiz"></div>
+        <button id="submit">Submit Quiz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is $XYBER used for in Xyber OS?",
+                options: [
+                    "Only trading",
+                    "Paying agents and apps to run",
+                    "Buying coffee",
+                    "Staking only"
+                ],
+                answer: 1
+            },
+            {
+                question: "What can you do with $XYBER?",
+                options: [
+                    "Upgrade agents",
+                    "Mine Bitcoin",
+                    "Pay electricity bills",
+                    "Print money"
+                ],
+                answer: 0
+            },
+            {
+                question: "Where does money for $XYBER buybacks come from?",
+                options: [
+                    "Donations",
+                    "Protocol fees or revenue",
+                    "Selling NFTs",
+                    "Bank loans"
+                ],
+                answer: 1
+            },
+            {
+                question: "Who can use $XYBER to participate?",
+                options: [
+                    "Only humans",
+                    "Agents, apps, and machines",
+                    "Only whales",
+                    "Banks"
+                ],
+                answer: 1
+            },
+            {
+                question: "What must intelligent systems pay $XYBER for?",
+                options: [
+                    "Operation and upgrades",
+                    "Free airdrops",
+                    "Watching ads",
+                    "Internet connection"
+                ],
+                answer: 0
+            },
+            {
+                question: "What happens to some protocol fees?",
+                options: [
+                    "Burned forever",
+                    "Used to buy back $XYBER",
+                    "Sent to charity",
+                    "Given to team only"
+                ],
+                answer: 1
+            },
+            {
+                question: "Can $XYBER holders vote?",
+                options: [
+                    "No, never",
+                    "Yes, on upgrades and incentives",
+                    "Only once a year",
+                    "Only if they have 1 million tokens"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is $XYBER the base currency of?",
+                options: [
+                    "Bitcoin network",
+                    "Xyber OS",
+                    "Apple Store",
+                    "The moon"
+                ],
+                answer: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+        const resultContainer = document.getElementById("result");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuiz() {
+            quizContainer.innerHTML = "";
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.classList.add("question");
+                questionDiv.innerHTML = `<p><strong>${index + 1}.</strong> ${q.question}</p>`;
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.classList.add("options");
+
+                q.options.forEach((option, i) => {
+                    const label = document.createElement("label");
+                    label.style.display = "block";
+                    label.style.margin = "8px 0";
+
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = i;
+
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(` ${option}`));
+                    optionsDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function getScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                }
+            });
+            return score;
+        }
+
+        submitButton.addEventListener("click", () => {
+            const score = getScore();
+            const total = questions.length;
+            const percentage = Math.round((score / total) * 100);
+
+            let message = `Your score: ${score} out of ${total} (${percentage}%)<br><br>`;
+            if (percentage === 100) {
+                message += "Perfect! You're an $XYBER expert 🚀";
+            } else if (percentage >= 75) {
+                message += "Great job! You know your $XYBER utility well.";
+            } else if (percentage >= 50) {
+                message += "Not bad! Keep learning about Xyber OS.";
+            } else {
+                message += "Time to dive deeper into Xyber & $XYBER!";
+            }
+
+            resultContainer.innerHTML = message;
+        });
+
+        loadQuiz();
+    </script>
+</body>
+</html>
+```
+
+Copy and save this as an `.html` file — all 8 new questions about $XYBER token utility are included with correct answers set. Enjoy the quiz! 🚀
