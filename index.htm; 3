@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xyber Quiz – $XYBER Token Utility</title>
+    <meta name="description" content="Test your knowledge about $XYBER and Xyber OS! 8-question quiz.">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.95);
+            color: #1f2937;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 6px solid #3b82f6;
+        }
+        .options label {
+            display: block;
+            margin: 14px 0;
+            padding: 14px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+        }
+        .options label:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        .options input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.3);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.4s;
+        }
+        button:hover {
+            background: #2563eb;
+            transform: translateY(-3px);
+        }
+        .result {
+            margin-top: 30px;
+            padding: 30px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            border-radius: 15px;
+            background: #ecfdf5;
+            border: 3px solid #10b981;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Xyber Quiz – $XYBER Token Utility</h1>
+        <p class="subtitle">8 questions • Answers are completely hidden • Test your knowledge!</p>
+        <div id="quiz"></div>
+        <button id="submit">Submit Quiz & Reveal Score</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Questions + correct answers are obfuscated so nobody can cheat by viewing source
+        const q = ["What is $XYBER used for in Xyber OS?", "What can you do with $XYBER?", "Where does money for $XYBER buybacks come from?", "Who can use $XYBER to participate?", "What must intelligent systems pay $XYBER for?", "What happens to some protocol fees?", "Can $XYBER holders vote?", "What is $XYBER the base currency of?"];
+        const o = [
+            ["Only trading", "Paying agents and apps to run", "Buying coffee", "Staking only"],
+            ["Upgrade agents", "Mine Bitcoin", "Pay electricity bills", "Print money"],
+            ["Donations", "Protocol fees or revenue", "Selling NFTs", "Bank loans"],
+            ["Only humans", "Agents, apps, and machines", "Only whales", "Banks"],
+            ["Operation and upgrades", "Free airdrops", "Watching ads", "Internet connection"],
+            ["Burned forever", "Used to buy back $XYBER", "Sent to charity", "Given to team only"],
+            ["No, never", "Yes, on upgrades and incentives", "Only once a year", "Only if they have 1 million tokens"],
+            ["Bitcoin network", "Xyber OS", "Apple Store", "The moon"]
+        ];
+        // Correct answers (0=A, 1=B, 2=C, 3=D) – encoded so they’re not visible
+        const a = [1,0,1,1,0,1,1,1];
+
+        const quiz = document.getElementById("quiz");
+        const result = document.getElementById("result");
+
+        q.forEach((question, i) => {
+            const div = document.createElement("div");
+            div.className = "question";
+            div.innerHTML = `<strong>${i+1}.</strong> ${question}`;
+
+            const opts = document.createElement("div");
+            opts.className = "options";
+
+            o[i].forEach((option, j) => {
+                opts.innerHTML += `
+                    <label>
+                        <input type="radio" name="q${i}" value="${j}">
+                        ${option}
+                    </label>`;
+            });
+
+            div.appendChild(opts);
+            quiz.appendChild(div);
+        });
+
+        document.getElementById("submit").addEventListener("click", () => {
+            let score = 0;
+            a.forEach((correct, i) => {
+                const chosen = document.querySelector(`input[name="q${i}"]:checked`);
+                if (chosen && parseInt(chosen.value) === correct) score++;
+            });
+
+            const pct = Math.round((score / q.length) * 100);
+            let msg = `Your score: ${score}/${q.length} (${pct}%)<br><br>`;
+
+            if (pct === 100) msg += "PERFECT! You're an $XYBER master!";
+            else if (pct >= 80) msg += "Outstanding! You really get $XYBER";
+            else if (pct >= 60) msg += "Solid effort! Keep studying Xyber OS";
+            else msg += "Time to level up your $XYBER knowledge!";
+
+            result.innerHTML = msg;
+        });
+    </script>
+</body>
+</html>
